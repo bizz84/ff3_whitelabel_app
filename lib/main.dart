@@ -33,6 +33,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: FlexThemeData.light(scheme: _flexScheme),
       home: FlexSchemeSelectorScreen(
