@@ -1,5 +1,7 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 final m3Schemes = [
   FlexScheme.redM3,
@@ -16,59 +18,59 @@ final m3Schemes = [
   FlexScheme.deepOrangeM3,
 ];
 
-void main() {
-  runApp(const MainApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // preload the package info
+  final packageInfo = await PackageInfo.fromPlatform();
+  runApp(MainApp(packageInfo: packageInfo));
 }
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key, required this.packageInfo});
+  final PackageInfo packageInfo;
 
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
-  FlexScheme _flexScheme = m3Schemes.first;
+  FlexScheme getScheme() => switch (appFlavor) {
+        'blue' => FlexScheme.blueM3,
+        _ => throw UnsupportedError('The appFlavor is not defined'),
+      };
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      theme: FlexThemeData.light(scheme: _flexScheme),
-      home: FlexSchemeSelectorScreen(
-        flexScheme: _flexScheme,
-        onChanged: (scheme) => setState(() => _flexScheme = scheme),
-      ),
+      theme: FlexThemeData.light(scheme: getScheme()),
+      home: HomeScreen(packageInfo: packageInfo),
     );
   }
 }
 
-class FlexSchemeSelectorScreen extends StatelessWidget {
-  const FlexSchemeSelectorScreen(
-      {super.key, required this.flexScheme, required this.onChanged});
-  final FlexScheme flexScheme;
-  final ValueChanged<FlexScheme> onChanged;
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key, required this.packageInfo});
+  final PackageInfo packageInfo;
 
   @override
   Widget build(BuildContext context) {
+    final flavoredAppIcon = 'assets/${appFlavor!}/icon.png';
+    final flavoredAppName = packageInfo.appName;
     return Scaffold(
-      appBar: AppBar(title: const Text('Theme Explorer')),
-      body: ListView.builder(
-        itemCount: m3Schemes.length,
-        itemBuilder: (_, index) {
-          final scheme = m3Schemes[index];
-          return RadioListTile<FlexScheme>(
-            title: Text(scheme.name),
-            value: scheme,
-            groupValue: flexScheme,
-            onChanged: (scheme) {
-              if (scheme != null) {
-                onChanged(scheme);
-              }
-            },
-          );
-        },
+      appBar: AppBar(title: Text('$flavoredAppName App')),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 32),
+          Text(
+            'Flavored app icon:',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 16),
+          Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(flavoredAppIcon, height: 120),
+            ),
+          ),
+        ],
       ),
     );
   }
