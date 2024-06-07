@@ -31,6 +31,9 @@ class MainApp extends StatelessWidget {
 
   FlexScheme getScheme() => switch (appFlavor) {
         'blue' => FlexScheme.blueM3,
+        'cyan' => FlexScheme.cyanM3,
+        'deeporange' => FlexScheme.deepOrangeM3,
+        'green' => FlexScheme.greenM3,
         // TODO: Add all the remaining flavors
         // * Fallback options
         null => FlexScheme.material,

@@ -16,6 +16,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: 4.0.0
+  flutter_flavorizr: 2.2.3
 
 flutter:
   uses-material-design: true
@@ -25,6 +26,56 @@ flutter:
     - path: assets/blue/
       flavors:
         - blue
-    # TODO: add all the remaining paths for each flavor
+    - path: assets/cyan/
+      flavors:
+        - cyan
+    - path: assets/deeporange/
+      flavors:
+        - deeporange
+    - path: assets/green/
+      flavors:
+        - green
 
-# TODO: Add flutter_flavorizr config for each flavor
+flavorizr:
+  ide: "vscode"
+  app:
+    android:
+      flavorDimensions: "flavor-type"
+    
+  flavors:
+    blue:
+      app:
+        name: "Blue"
+      android:
+        applicationId: "com.codewithandrea.whitelabel_app.blue"
+        icon: "assets/blue/icon.png"
+      ios:
+        bundleId: "com.codewithandrea.whitelabelApp.blue"
+        icon: "assets/blue/icon.png"
+    cyan:
+      app:
+        name: "Cyan"
+      android:
+        applicationId: "com.codewithandrea.whitelabel_app.cyan"
+        icon: "assets/cyan/icon.png"
+      ios:
+        bundleId: "com.codewithandrea.whitelabelApp.cyan"
+        icon: "assets/cyan/icon.png"
+    deeporange:
+      app:
+        name: "Deep Orange"
+      android:
+        applicationId: "com.codewithandrea.whitelabel_app.deeporange"
+        icon: "assets/deeporange/icon.png"
+      ios:
+        bundleId: "com.codewithandrea.whitelabelApp.deeporange"
+        icon: "assets/deeporange/icon.png"
+    green:
+      app:
+        name: "Green"
+      android:
+        applicationId: "com.codewithandrea.whitelabel_app.green"
+        icon: "assets/green/icon.png"
+      ios:
+        bundleId: "com.codewithandrea.whitelabelApp.green"
+        icon: "assets/green/icon.png"                        
