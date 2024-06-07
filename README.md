@@ -1,11 +1,5 @@
 # Example Whitelabel App for the Flutter in Production course
 
-A new Flutter project.
+This example app is used as one of the challenges for the Flutter in Production course.
 
-### Generating the app icons
-
-Run this:
-
-```zsh
-flutter pub run flutter_launcher_icons -f flutter_launcher_icons-<flavor>.yaml
-```
+Follow the instructions in the course to complete this challenge.
