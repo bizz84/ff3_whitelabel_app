@@ -1,9 +1,0 @@
-# Custom app icon. For more info see: https://pub.dev/packages/flutter_launcher_icons
-flutter_launcher_icons:
-  ios: true
-  android: true
-  remove_alpha_ios: true
-  image_path_ios: "assets/blue/icon.png"
-  image_path_android: "assets/blue/icon.png"
-  adaptive_icon_background: "assets/blue/icon.png"
-  adaptive_icon_foreground: "assets/blue/icon.png"
