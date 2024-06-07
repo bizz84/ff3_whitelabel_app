@@ -31,7 +31,10 @@ class MainApp extends StatelessWidget {
 
   FlexScheme getScheme() => switch (appFlavor) {
         'blue' => FlexScheme.blueM3,
-        _ => throw UnsupportedError('The appFlavor is not defined'),
+        // TODO: Add all the remaining flavors
+        // * Fallback options
+        null => FlexScheme.material,
+        _ => throw UnsupportedError('$appFlavor is not recognized as a flavor'),
       };
 
   @override
@@ -40,7 +43,9 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: FlexThemeData.light(scheme: getScheme()),
-      home: HomeScreen(packageInfo: packageInfo),
+      home: appFlavor == null
+          ? const InvalidFlavorScreen()
+          : HomeScreen(packageInfo: packageInfo),
     );
   }
 }
@@ -51,7 +56,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final flavoredAppIcon = 'assets/${appFlavor!}/icon.png';
+    const flavoredAppIcon = 'assets/$appFlavor/icon.png';
     final flavoredAppName = packageInfo.appName;
     return Scaffold(
       appBar: AppBar(title: Text('$flavoredAppName App')),
@@ -71,6 +76,38 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class InvalidFlavorScreen extends StatelessWidget {
+  const InvalidFlavorScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Whitelabel App')),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'The app flavor is missing. Please run the app with:',
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'flutter run --flavor',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
