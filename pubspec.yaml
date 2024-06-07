@@ -20,6 +20,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    # How to bundle assets based on flavor
+    # https://github.com/bizz84/flutter-tips-and-tricks/blob/main/tips/0147-bundle-assets-based-on-flavor/index.md
     - path: assets/blue/
       flavors:
         - blue
+    # TODO: add all the remaining paths for each flavor
+
+# TODO: Add flutter_flavorizr config for each flavor
